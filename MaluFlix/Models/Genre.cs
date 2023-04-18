@@ -8,7 +8,7 @@ namespace MaluFlix.Models;
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public byte Id { get; set; }
 
         [Display(Name = "Nome")]
         [Required(ErrorMessage ="O Nome do Gênero é obrigatório")]
@@ -16,3 +16,4 @@ namespace MaluFlix.Models;
         public string Name { get; set; }
 
     }
+ 
