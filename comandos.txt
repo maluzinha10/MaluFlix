@@ -1,0 +1,16 @@
+-- para criar a solução
+dotnet new sln --name MaluFlix
+
+--para criar o projeto 
+dotnet new mvc -f net6.0 -o MaluFlix
+
+--para adcionar o projeto na solução
+dotnet sln add MaluFlix\MaluFlix.csproj
+
+--Instalar os pacotes de acesso a dados
+dotnet add package Microsoft.EntityFrameworkCore --version 6.0.16
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.16
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 6.0.2
+
+--instalar o pacote do Identity - para gestao de usuarios
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 6.0.16
