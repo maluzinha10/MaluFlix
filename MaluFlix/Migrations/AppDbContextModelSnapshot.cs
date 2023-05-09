@@ -168,6 +168,29 @@ namespace MaluFlix.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff",
+                            ConcurrencyStamp = "236fe8f8-d44b-4086-a33f-74556fe2e84a",
+                            Name = "Administrador",
+                            NormalizedName = "ADMINISTRADOR"
+                        },
+                        new
+                        {
+                            Id = "57b9f3b6-b8ec-48a8-a58e-f0c3a649bfad",
+                            ConcurrencyStamp = "bf5ee48f-38ff-481a-87a5-79ae04b00d26",
+                            Name = "Moderador",
+                            NormalizedName = "MODERADOR"
+                        },
+                        new
+                        {
+                            Id = "c53ed805-9687-439b-be6e-d6e16b1911d5",
+                            ConcurrencyStamp = "f58f0263-70f3-48e7-be7d-68fb24952872",
+                            Name = "Usuário",
+                            NormalizedName = "USUÁRIO"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -321,6 +344,13 @@ namespace MaluFlix.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8a36c4ba-016e-44ab-8186-de6384eb961b",
+                            RoleId = "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -359,6 +389,28 @@ namespace MaluFlix.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.HasDiscriminator().HasValue("AppUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8a36c4ba-016e-44ab-8186-de6384eb961b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "106d50c7-2b28-4ac6-b2e5-cc001c326285",
+                            Email = "marialuizagon1008@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MARIALUIZAGON1008@GMAIL.COM",
+                            NormalizedUserName = "MALU",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPHzNEiHaIIseezdxHS4iZQKzpYzVNziLg2mxweOTIS4CsYiA0ixFPseK0cxDNa4pg==",
+                            PhoneNumber = "14988321653",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "3dc2b999-a12c-412d-8aa0-a65994415da3",
+                            TwoFactorEnabled = false,
+                            UserName = "Malu",
+                            DateOfBirth = new DateTime(2005, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Maria Luiza Gonçalves",
+                            ProfilePicture = "/img/users/avatar.png"
+                        });
                 });
 
             modelBuilder.Entity("MaluFlix.Models.MovieComment", b =>
