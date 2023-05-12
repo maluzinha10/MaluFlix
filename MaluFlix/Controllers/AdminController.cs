@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace MaluFlix.Controllers
-{
+namespace MaluFlix.Controllers;
+
     [Authorize(Roles = "Administrador")]
     public class AdminController : Controller
     {
@@ -26,4 +26,3 @@ namespace MaluFlix.Controllers
             return View("Error!");
         }
     }
-}

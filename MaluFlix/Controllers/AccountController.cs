@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace MaluFlix.Controllers
-{
+namespace MaluFlix.Controllers;
 
-    public class AccountController : Controller
+    [Authorize(Roles = "Administrador")]
+
+        public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
 
@@ -23,10 +19,18 @@ namespace MaluFlix.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult login(string returnUrl)
         {
-            return View("Error!");
+            
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult login()
+        {
+            return View();
         }
     }
-}
