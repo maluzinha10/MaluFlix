@@ -1,4 +1,7 @@
+using MaluFlix.DataTransferObjects;
+using MaluFlix.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaluFlix.Controllers;
@@ -8,10 +11,17 @@ namespace MaluFlix.Controllers;
         public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-
-        public AccountController(ILogger<AccountController> logger)
+        private readonly SignInManager<AppUser> SignInManager;
+        private readonly UserManager<AppUser> UserManager;
+        
+        public AccountController(
+        ILogger<AccountController> logger,
+        SignInManager<AppUser> SignInManager,
+        UserManager<AppUser> UserManager)
         {
             _logger = logger;
+            _singInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -23,14 +33,20 @@ namespace MaluFlix.Controllers;
         [AllowAnonymous]
         public IActionResult login(string returnUrl)
         {
-            
-            return View();
+            LoginDto loginDto = new();
+            loginDto.ReturnUrl = returnUrl ?? Url.Content("~/"); 
+            return View(loginDto);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult login()
+        public IActionResult login(LoginDto login)
         {
-            return View();
+            //se o model é valido, faz login
+            if(ModelState.IsValid)
+            {
+                return LocalRedirect(login.ReturnUrl);
+            }
+            return View(login);
         }
     }
