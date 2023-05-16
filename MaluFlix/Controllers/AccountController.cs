@@ -6,47 +6,47 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MaluFlix.Controllers;
 
-    [Authorize(Roles = "Administrador")]
+[Authorize(Roles = "Administrador")]
+public class AccountController : Controller
+{
+    private readonly ILogger<AccountController> _logger;
+    private readonly SignInManager<AppUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
 
-        public class AccountController : Controller
-    {
-        private readonly ILogger<AccountController> _logger;
-        private readonly SignInManager<AppUser> SignInManager;
-        private readonly UserManager<AppUser> UserManager;
-        
-        public AccountController(
+    public AccountController(
         ILogger<AccountController> logger,
-        SignInManager<AppUser> SignInManager,
-        UserManager<AppUser> UserManager)
-        {
-            _logger = logger;
-            _singInManager = signInManager;
-            _userManager = userManager;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult login(string returnUrl)
-        {
-            LoginDto loginDto = new();
-            loginDto.ReturnUrl = returnUrl ?? Url.Content("~/"); 
-            return View(loginDto);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult login(LoginDto login)
-        {
-            //se o model é valido, faz login
-            if(ModelState.IsValid)
-            {
-                return LocalRedirect(login.ReturnUrl);
-            }
-            return View(login);
-        }
+        SignInManager<AppUser> signInManager,
+        UserManager<AppUser> userManager)
+    {
+        _logger = logger;
+        _signInManager = signInManager;
+        _userManager = userManager;
     }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult Login(string returnUrl)
+    {
+        LoginDto loginDto = new();
+        loginDto.ReturnUrl = returnUrl ?? Url.Content("~/");
+        return View(loginDto);
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    public IActionResult Login(LoginDto login)
+    {
+        // Se o model é válido, faz login
+        if (ModelState.IsValid)
+        {
+
+            return LocalRedirect(login.ReturnUrl);
+        }
+        return View(login);
+    }
+}
