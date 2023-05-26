@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using MaluFlix.DataTransferObjects;
 using MaluFlix.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -44,8 +45,15 @@ public class AccountController : Controller
         // Se o model é válido, faz login
         if (ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(
-                login.Email, login.Password, login.RememberMe, true
+            string userName = login.Email;
+            if (IsValidEmail(login.Email))
+            {
+                var user = await _userManager.FindByEmailAsync(login.Email);
+                if (user != null)
+                userName = user.UserName;
+            }
+        var result = await _signInManager.PasswordSignInAsync(
+                userName, login.Password, login.RememberMe, true
             );
             if (result.Succeeded)
             {
@@ -55,10 +63,24 @@ public class AccountController : Controller
             if (result.IsLockedOut)
             {
                 _logger.LogWarning($"Usuário { login.Email } está bloqueado");
-                return RedirectToAction("lockout");
+                return RedirectToAction("Lockout");
             }
-            ModelState.AddModelError("login","Usuário e/ou Senha Inválidos!!!");
+            ModelState.AddModelError("login", "Usuário e/ou Senha Inválidos!!!");
+
         }
         return View(login);
+    }
+
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            MailAddress m = new(email);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
     }
 }
