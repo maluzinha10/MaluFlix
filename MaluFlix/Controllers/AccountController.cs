@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using System.Security.Claims;
 using MaluFlix.DataTransferObjects;
 using MaluFlix.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -69,6 +70,21 @@ public class AccountController : Controller
 
         }
         return View(login);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> logout()
+    {
+        _logger.LogInformation($"Usuário {ClaimTypes.Email} fez logoff");
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult Register()
+    {
+        return View();
     }
 
     private bool IsValidEmail(string email)
