@@ -1,6 +1,8 @@
+
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 using MaluFlix.DataTransferObjects;
 using MaluFlix.Models;
 using MaluFlix.Services;
@@ -128,9 +130,29 @@ public class AccountController : Controller
                     protocol: Request.Scheme
                 );
 
+                await _userManager.AddToRoleAsync(user, "Usuário");
+
+                await _emailSender.SendEmailAsync(
+                 email: register.Email,
+                 subject: "MaluFlix - Criação de Conta",
+                 htmlMessage: $"Por Favor, confirme a criação da sua conta <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicando aqui</a>"
+                );
+
+                return RedirectToAction("RegisterConfirmation");
             }
+            foreach(var error in result.Errors)
+            {
+               ModelState.AddModelError(string.Empty, error.Description); 
+            }
+            
         }
         return View(register);
+
+    }
+
+    public IActionResult RegisterConfirmation()
+    {
+        return View();
     }
 
     private bool IsValidEmail(string email)
