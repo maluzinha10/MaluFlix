@@ -35,7 +35,7 @@ public class AccountController : Controller
         _signInManager = signInManager;
         _userManager = userManager;
         _userStore = userStore;
-        _emailStore = (IUserEmailStore<AppUser>)_emailStore;
+        _emailStore = (IUserEmailStore<AppUser>) _emailStore;
         _emailSender = emailSender;
     }
 
