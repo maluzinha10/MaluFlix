@@ -1513,7 +1513,7 @@ public class AccountController : Controller
 
 
 -- Pasta Views\Account criar os seguintes arquivos:
- - AccessDenied.cshtml
+ - AccessDenied.cshtmlC
  - ConfirmEmail.cshtml
  - Forget.cshtml
  - ForgetConfirmation.cshtml
