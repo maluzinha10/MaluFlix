@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaluFlix.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230509150029_criar-banco")]
-    partial class criarbanco
+    [Migration("20230804133149_criando-banco")]
+    partial class criandobanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,8 @@ namespace MaluFlix.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AgeRating")
-                        .HasColumnType("int");
+                    b.Property<byte>("AgeRating")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<short>("Duration")
                         .HasColumnType("smallint");
@@ -174,24 +174,24 @@ namespace MaluFlix.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff",
-                            ConcurrencyStamp = "236fe8f8-d44b-4086-a33f-74556fe2e84a",
+                            Id = "0efb7d49-951a-4625-820f-f8f898a347a3",
+                            ConcurrencyStamp = "eec2a504-b9f1-4e4e-9562-b3bd84cbb8b5",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "57b9f3b6-b8ec-48a8-a58e-f0c3a649bfad",
-                            ConcurrencyStamp = "bf5ee48f-38ff-481a-87a5-79ae04b00d26",
+                            Id = "f9f5daeb-7286-41ad-94ba-db1687080c69",
+                            ConcurrencyStamp = "da6ab1f4-9239-459e-a2ed-4e5718936b5e",
                             Name = "Moderador",
                             NormalizedName = "MODERADOR"
                         },
                         new
                         {
-                            Id = "c53ed805-9687-439b-be6e-d6e16b1911d5",
-                            ConcurrencyStamp = "f58f0263-70f3-48e7-be7d-68fb24952872",
+                            Id = "01ea699f-0b0d-4f77-b3c5-18a6cebb7c85",
+                            ConcurrencyStamp = "45d8e66e-7f83-486f-81b4-1af0f165bb90",
                             Name = "Usuário",
-                            NormalizedName = "USUÁRIO"
+                            NormalizedName = " USUÁRIO"
                         });
                 });
 
@@ -283,7 +283,7 @@ namespace MaluFlix.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
@@ -350,8 +350,8 @@ namespace MaluFlix.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "8a36c4ba-016e-44ab-8186-de6384eb961b",
-                            RoleId = "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff"
+                            UserId = "d3e66534-336a-4344-a92a-bb3ad0ab3a9c",
+                            RoleId = "0efb7d49-951a-4625-820f-f8f898a347a3"
                         });
                 });
 
@@ -395,22 +395,22 @@ namespace MaluFlix.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8a36c4ba-016e-44ab-8186-de6384eb961b",
+                            Id = "d3e66534-336a-4344-a92a-bb3ad0ab3a9c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "106d50c7-2b28-4ac6-b2e5-cc001c326285",
-                            Email = "marialuizagon1008@gmail.com",
+                            ConcurrencyStamp = "83859ecc-8601-49fc-b417-033cca6f944e",
+                            Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "MARIALUIZAGON1008@GMAIL.COM",
-                            NormalizedUserName = "MALU",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPHzNEiHaIIseezdxHS4iZQKzpYzVNziLg2mxweOTIS4CsYiA0ixFPseK0cxDNa4pg==",
-                            PhoneNumber = "14988321653",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH4ok40+nt4JTGdo1DNDp238TikZEPmLKmwpx6Ph9ybwpCv4Bl1eiTKNJGmWrPkbbw==",
+                            PhoneNumber = "14912345678",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "3dc2b999-a12c-412d-8aa0-a65994415da3",
+                            SecurityStamp = "e2e4e419-d808-4b26-b55c-e03be9835f92",
                             TwoFactorEnabled = false,
-                            UserName = "Malu",
-                            DateOfBirth = new DateTime(2005, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Maria Luiza Gonçalves",
+                            UserName = "Admin",
+                            DateOfBirth = new DateTime(2005, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Seu Nome Completo",
                             ProfilePicture = "/img/users/avatar.png"
                         });
                 });

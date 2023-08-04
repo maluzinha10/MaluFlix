@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MaluFlix.Migrations
 {
-    public partial class criarbanco : Migration
+    public partial class criandobanco : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,7 @@ namespace MaluFlix.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MovieYear = table.Column<short>(type: "Year", nullable: false),
                     Duration = table.Column<short>(type: "smallint", nullable: false),
-                    AgeRating = table.Column<int>(type: "int", nullable: false),
+                    AgeRating = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     Image = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -72,7 +72,7 @@ namespace MaluFlix.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -109,7 +109,7 @@ namespace MaluFlix.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -186,9 +186,9 @@ namespace MaluFlix.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MovieComment_User_UserId",
+                        name: "FK_MovieComment_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -214,9 +214,9 @@ namespace MaluFlix.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MovieRating_User_UserId",
+                        name: "FK_MovieRating_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -239,9 +239,9 @@ namespace MaluFlix.Migrations
                 {
                     table.PrimaryKey("PK_UserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserClaims_User_UserId",
+                        name: "FK_UserClaims_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -264,9 +264,9 @@ namespace MaluFlix.Migrations
                 {
                     table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_UserLogins_User_UserId",
+                        name: "FK_UserLogins_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -291,9 +291,9 @@ namespace MaluFlix.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRoles_User_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -316,9 +316,9 @@ namespace MaluFlix.Migrations
                 {
                     table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_UserTokens_User_UserId",
+                        name: "FK_UserTokens_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -329,20 +329,20 @@ namespace MaluFlix.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "57b9f3b6-b8ec-48a8-a58e-f0c3a649bfad", "bf5ee48f-38ff-481a-87a5-79ae04b00d26", "Moderador", "MODERADOR" },
-                    { "c53ed805-9687-439b-be6e-d6e16b1911d5", "f58f0263-70f3-48e7-be7d-68fb24952872", "Usuário", "USUÁRIO" },
-                    { "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff", "236fe8f8-d44b-4086-a33f-74556fe2e84a", "Administrador", "ADMINISTRADOR" }
+                    { "01ea699f-0b0d-4f77-b3c5-18a6cebb7c85", "45d8e66e-7f83-486f-81b4-1af0f165bb90", "Usuário", " USUÁRIO" },
+                    { "0efb7d49-951a-4625-820f-f8f898a347a3", "eec2a504-b9f1-4e4e-9562-b3bd84cbb8b5", "Administrador", "ADMINISTRADOR" },
+                    { "f9f5daeb-7286-41ad-94ba-db1687080c69", "da6ab1f4-9239-459e-a2ed-4e5718936b5e", "Moderador", "MODERADOR" }
                 });
 
             migrationBuilder.InsertData(
-                table: "User",
+                table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8a36c4ba-016e-44ab-8186-de6384eb961b", 0, "106d50c7-2b28-4ac6-b2e5-cc001c326285", new DateTime(2005, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "AppUser", "marialuizagon1008@gmail.com", true, false, null, "Maria Luiza Gonçalves", "MARIALUIZAGON1008@GMAIL.COM", "MALU", "AQAAAAEAACcQAAAAEPHzNEiHaIIseezdxHS4iZQKzpYzVNziLg2mxweOTIS4CsYiA0ixFPseK0cxDNa4pg==", "14988321653", true, "/img/users/avatar.png", "3dc2b999-a12c-412d-8aa0-a65994415da3", false, "Malu" });
+                values: new object[] { "d3e66534-336a-4344-a92a-bb3ad0ab3a9c", 0, "83859ecc-8601-49fc-b417-033cca6f944e", new DateTime(2005, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "AppUser", "admin@gmail.com", true, false, null, "Seu Nome Completo", "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEH4ok40+nt4JTGdo1DNDp238TikZEPmLKmwpx6Ph9ybwpCv4Bl1eiTKNJGmWrPkbbw==", "14912345678", true, "/img/users/avatar.png", "e2e4e419-d808-4b26-b55c-e03be9835f92", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "f5d1bc2a-b204-47b0-94f4-582b73a4d0ff", "8a36c4ba-016e-44ab-8186-de6384eb961b" });
+                values: new object[] { "0efb7d49-951a-4625-820f-f8f898a347a3", "d3e66534-336a-4344-a92a-bb3ad0ab3a9c" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieComment_MovieId",
@@ -376,17 +376,6 @@ namespace MaluFlix.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "User",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "User",
-                column: "NormalizedUserName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
                 table: "UserClaims",
                 column: "UserId");
@@ -400,6 +389,17 @@ namespace MaluFlix.Migrations
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "Users",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "Users",
+                column: "NormalizedUserName",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -438,7 +438,7 @@ namespace MaluFlix.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }
